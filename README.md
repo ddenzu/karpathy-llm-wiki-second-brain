@@ -22,10 +22,14 @@ You write sources. The LLM does the bookkeeping — summarizing, cross-linking, 
 1. **Use this template** (green button) or clone it.
 2. Open the folder in **Obsidian** (read-only frontend: graph + backlinks).
 3. Run **Claude Code** in the folder.
-4. Drop a source into `raw/` (or paste a URL) and run:
-   - `/ingest <source>` — compile a source into the wiki
-   - `/query <question>` — answer from the wiki, with citations
-   - `/lint` — health-check (orphans, contradictions, un-ingested backlog)
+4. Drop a source into `raw/` (or paste a URL), then run a command:
+
+### Commands
+| Command | What it does | Benefit |
+|---|---|---|
+| `/ingest <source>` | Compile a source into the wiki | Summarize → format, citations, ≥2 links, index, log — integrated every time (no orphans) |
+| `/query <question>` | Cited answer from the wiki | Index→drill-down + citations + no-hallucination + compounding |
+| `/lint` | Wiki health-check | Catches orphans, contradictions, stale claims, un-ingested backlog |
 
 ### Structure
 ```
@@ -37,6 +41,26 @@ wiki/               # LLM-compiled knowledge (incl. 유형:결정 decision notes
 assets/             # binaries — created on first file
 .claude/commands/   # /ingest /query /lint
 ```
+
+### 🧭 Why this shape? (vs. other Obsidian LLM wikis)
+Compared popular setups, kept the better choices.
+
+- **Four doors** — others: one wiki. here: Work · Learning · Decisions · Thinking, in one place.
+- **Links, not folders** — others: topic folders. here: a web of links → no reshuffling.
+- **Sources untouched** — others: move processed files to a "done" folder. here: originals stay, the rest flagged automatically.
+
+### 🔌 Use it from anywhere (while coding, in meetings)
+Despite the name, a vault is just a folder — capture anywhere, organize in the vault.
+
+- **In the vault**: run Claude Code → `/ingest` · `/query` · `/lint`
+- **From any project (coding, meetings)**: don't stop working — drop the finding into `<vault>/raw/`, then `/ingest` it in the vault later to accumulate into the wiki
+  - Simple: save a `raw/YYYY-MM-DD-title.md` note
+  - Smooth: a global capture skill saves it to `raw/` with one line — "save this to my vault"
+- **Right before ending a session or switching context**: save the key points to `raw/` — a good habit for catching context that's easy to lose
+- **Auto-feed**: symlink an agent's memory (e.g. your global Claude memory) or a code project's memory into `raw/`, and that growing memory becomes a source (read-only)
+- e.g. **Dev**: a bug's cause / a convention → Work. **Meetings**: decisions / to-dos → Decision & Work notes
+
+Knowledge built up this way is visible to the agents you work with in other sessions, so they catch what you miss and give more complete answers.
 
 ---
 
@@ -62,10 +86,14 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 1. 이 템플릿을 **Use this template** / clone.
 2. 폴더를 **Obsidian**으로 연다 (읽기 전용 프론트엔드: 그래프·백링크).
 3. 폴더에서 **Claude Code** 실행.
-4. `raw/`에 원본을 던지고(또는 URL 붙여넣기):
-   - `/ingest <원본>` — 원본을 위키로 컴파일
-   - `/query <질문>` — 위키 기반, 출처 단 답
-   - `/lint` — 건강검진 (고아·모순·미ingest 백로그)
+4. `raw/`에 원본을 던지고(또는 URL 붙여넣기), 커맨드 실행:
+
+### 명령
+| 커맨드 | 하는 일 | 이점 |
+|---|---|---|
+| `/ingest <원본>` | 원본 → 위키 컴파일 | 요약·합의 → 형식·출처·링크(2+)·인덱스·로그까지 자동 통합 (고아 없음) |
+| `/query <질문>` | 위키 기반, 출처 단 답 | 인덱스→드릴다운 + 출처 + 환각금지 + 복리 |
+| `/lint` | 위키 건강검진 | 고아·모순·낡은 주장·미ingest 정기 점검 |
 
 ### 4축 세컨드브레인
 폴더가 아니라 `index.md`의 **섹션(MOC)**으로 산다:
@@ -79,6 +107,26 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 
 새 주제가 생기면 해당 섹션에 한 줄. 폴더는 `raw`·`wiki` 최소만 — **폴더보다 링크·MOC.**
 
+### 🧭 왜 이런 구조? (다른 옵시디언 LLM 위키와 비교)
+인기 구조들과 비교해 더 나은 선택만 골랐습니다.
+
+- **4개의 문** — 남들은 위키 하나. 여기선 업무·학습·결정·사고로 나눠 한곳에.
+- **폴더 대신 연결** — 남들은 주제 폴더로 칸칸이. 여기선 링크로 이어 옮길 일이 없음.
+- **원본 불변** — 남들은 정리본을 "처리됨" 폴더로 옮김. 여기선 그대로 두고, 안 한 건 자동 표시.
+
+### 🔌 어디서나 쓰기 (개발·회의 중에도)
+볼트는 금고, 즉 그냥 폴더입니다 — 수집은 어디서나, 정리는 볼트에서.
+
+- **볼트 안**: Claude Code 실행 → `/ingest` · `/query` · `/lint`
+- **다른 프로젝트(코딩·회의 중)**: 일 멈추지 말고 발견을 `<볼트>/raw/`에 던져둠 → 나중에 볼트에서 `/ingest`로 정리해 wiki로 축적
+  - 간단: `raw/YYYY-MM-DD-제목.md` 파일로 저장
+  - 매끄럽게: 전역 캡처 스킬을 두면 어디서든 "이거 볼트에 저장해" 한 마디로 `raw/`에 저장됨
+- **세션을 끝내거나 맥락을 바꾸기 직전**: 그 대화의 핵심을 `raw/`에 저장 — 흩어지기 쉬운 맥락을 붙잡는 좋은 습관
+- **자동 연결**: 에이전트 메모리(예: 전역 Claude 메모리)나 코드 프로젝트의 메모리를 `raw/`에 심볼릭 링크로 걸면, 쌓이는 메모리가 그대로 소스가 됨 (링크 대상도 읽기 전용)
+- 예) **개발**: 버그 원인·컨벤션 → 업무 지식 / **회의**: 결정·할 일 → 결정·업무 노트
+
+이렇게 쌓인 위키 지식은 다른 세션에서 대화하는 에이전트도 인지할 수 있어, 내가 놓친 부분까지 짚고 더 완성도 높은 답을 줍니다.
+
 ### 원칙
 - **하나의 사실은 한 곳에** — 위키가 틀리면 고치지 말고 raw에서 재컴파일.
 - **미리 채우지 않기** — 지금 필요한 것만 (냉장고 안 채우기).
@@ -87,7 +135,6 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 
 ### 커스터마이즈
 - **언어**: `CLAUDE.md` 절대 규칙의 "한국어로 작성" 줄을 바꾸면 됨.
-- **외부 소스**: `raw/` 안에 코드프로젝트 메모 등을 **심링크**로 걸어 단일 소스 레이어로 둘 수 있음 (심링크 대상도 읽기 전용).
 - **새 노트 위치**: `.obsidian/app.json`에 `newFileLocation: wiki` 설정 포함 — UI로 만든 노트가 루트로 안 샘.
 
 ### 크레딧 / 라이선스
