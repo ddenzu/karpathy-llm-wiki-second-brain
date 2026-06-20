@@ -27,7 +27,7 @@ You write sources. The LLM does the bookkeeping — summarizing, cross-linking, 
 ### Commands
 | Command | What it does | Benefit |
 |---|---|---|
-| `/ingest <source>` | Compile a source into the wiki | Summarize → format, citations, ≥2 links, index, log — integrated every time (no orphans) |
+| `/ingest <source>` | Compile a source into the wiki | Summarize → format, citations, ≥2 links, index, log — integrated every time |
 | `/query <question>` | Cited answer from the wiki | Index→drill-down + citations + no-hallucination + compounding |
 | `/lint` | Wiki health-check | Catches orphans, contradictions, stale claims, un-ingested backlog |
 
@@ -42,6 +42,18 @@ assets/             # binaries — created on first file
 .claude/commands/   # /ingest /query /lint
 ```
 
+### 4-axis second brain
+The axes don't live as folders — they exist as **sections (MOCs) in `index.md`**:
+
+| Axis | What it holds |
+|---|---|
+| 🗂 Work | Active tasks · domain knowledge |
+| 📚 Learning | Concepts · references · things learned |
+| 💭 Thinking | Ideas · insights · open questions |
+| ⚖️ Decisions | `유형: 결정` notes (ADR-style · append-only) |
+
+New topic → one line under its axis. Folders stay minimal (`raw`·`wiki`) — **links & MOCs over folders.**
+
 ### 🧭 What's improved
 Faithful to the standard Karpathy LLM Wiki pattern, with **two improvements**:
 
@@ -54,14 +66,20 @@ Faithful to the standard Karpathy LLM Wiki pattern, with **two improvements**:
 Despite the name, a vault is just a folder — capture anywhere, organize in the vault.
 
 - **In the vault**: run Claude Code → `/ingest` · `/query` · `/lint`
-- **From any project (coding, meetings)**: don't stop working — drop the finding into `<vault>/raw/`, then `/ingest` it in the vault later to accumulate into the wiki
+- **From any project (work, coding, meetings)**: don't stop working — drop the finding into `<vault>/raw/`, then `/ingest` it in the vault later to accumulate into the wiki
   - Simple: save a `raw/YYYY-MM-DD-title.md` note
   - Smooth: a global capture skill saves it to `raw/` with one line — "save this to my vault"
 - **Right before ending a session or switching context**: save the key points to `raw/` — a good habit for catching context that's easy to lose
 - **Auto-feed**: symlink an agent's memory (e.g. your global Claude memory) or a code project's memory into `raw/`, and that growing memory becomes a source (read-only)
-- e.g. **Dev**: a bug's cause / a convention → Work. **Meetings**: decisions / to-dos → Decision & Work notes
 
 Knowledge built up this way is visible to the agents you work with in other sessions, so they catch what you miss and give more complete answers.
+
+### Customize
+- **Language**: change the "write in Korean" line in `CLAUDE.md`'s absolute rules.
+
+### Credits / License
+- Methodology: **Andrej Karpathy**, *LLM Wiki*.
+- License: **MIT**.
 
 ---
 
@@ -96,6 +114,17 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 | `/query <질문>` | 위키 기반, 출처 단 답 | 인덱스→드릴다운 + 출처 + 환각금지 + 복리 |
 | `/lint` | 위키 건강검진 | 고아·모순·낡은 주장·미ingest 정기 점검 |
 
+### 구조
+```
+index.md            # 4축 MOC — 진입점
+CLAUDE.md           # 스키마 (규칙)
+log.md              # append-only 활동 로그
+raw/                # 불변 원본 인박스
+wiki/               # LLM이 컴파일한 지식 (유형:결정 노트 포함)
+assets/             # 바이너리 — 첫 파일 때 생성
+.claude/commands/   # /ingest /query /lint
+```
+
 ### 4축 세컨드브레인
 폴더가 아니라 `index.md`의 **섹션(MOC)**으로 존재함:
 
@@ -108,8 +137,8 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 
 새 주제가 생기면 해당 섹션에 한 줄. 폴더는 `raw`·`wiki` 최소만 — **폴더보다 링크·MOC.**
 
-### 🧭 무엇이 개선했나
-표준 카파시 LLM Wiki 패턴을 충실히 따르되, **두 가지를 개선**된 버전.
+### 🧭 무엇이 개선됐나
+표준 카파시 LLM Wiki 패턴을 충실히 따르되, **두 가지가 개선**된 버전.
 
 - **결정·사고도 1급 축** — 대부분 LLM 위키는 개념·엔티티 중심 지식 위키. 여기선 업무·학습에 더해 **결정·사고까지 4개 축**으로.
 - **원본을 옮기지 않는다** — 인기 패턴은 처리한 원본을 "처리됨" 폴더로 이동. 여기선 **그대로 두고**, 아직 정리 안 된 것만 자동 표시 → 원본 경로가 깨지지 않음.
@@ -127,6 +156,9 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 - **자동 연결**: 에이전트 메모리(예: 전역 Claude 메모리)나 코드 프로젝트의 메모리를 `raw/`에 심볼릭 링크로 걸면, 쌓이는 메모리가 그대로 소스가 됨 (링크 대상도 읽기 전용)
 
 이렇게 쌓인 위키 지식은 다른 세션에서 대화하는 에이전트도 인지할 수 있어, 내가 놓친 부분까지 짚고 더 완성도 높은 답을 줌.
+
+### 커스터마이즈
+- **언어**: `CLAUDE.md` 절대 규칙의 "한국어로 작성" 줄을 바꾸면 됨.
 
 ### 크레딧 / 라이선스
 - 방법론: **Andrej Karpathy**, *LLM Wiki*.
