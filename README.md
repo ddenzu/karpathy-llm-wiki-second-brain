@@ -42,12 +42,13 @@ assets/             # binaries — created on first file
 .claude/commands/   # /ingest /query /lint
 ```
 
-### 🧭 Why this shape? (vs. other Obsidian LLM wikis)
-Compared popular setups, kept the better choices.
+### 🧭 What's improved
+Faithful to the standard Karpathy LLM Wiki pattern, with **two improvements**:
 
-- **Four doors** — others: one wiki. here: Work · Learning · Decisions · Thinking, in one place.
-- **Links, not folders** — others: topic folders. here: a web of links → no reshuffling.
-- **Sources untouched** — others: move processed files to a "done" folder. here: originals stay, the rest flagged automatically.
+- **Decisions & Thinking as first-class axes** — most LLM wikis are concept/entity knowledge wikis; this adds Decisions and Thinking on top of Work and Learning, for four axes.
+- **Sources are never moved** — the popular pattern moves processed sources into a "done" folder; here they stay put and only the un-processed ones are flagged automatically → source paths never break.
+
+> Everything else follows the pattern faithfully (links over folders, read-only sources, citation back-tracing).
 
 ### 🔌 Use it from anywhere (while coding, in meetings)
 Despite the name, a vault is just a folder — capture anywhere, organize in the vault.
@@ -107,12 +108,13 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 
 새 주제가 생기면 해당 섹션에 한 줄. 폴더는 `raw`·`wiki` 최소만 — **폴더보다 링크·MOC.**
 
-### 🧭 왜 이런 구조? (다른 옵시디언 LLM 위키와 비교)
-인기 구조들과 비교해 더 나은 선택만 골랐습니다.
+### 🧭 무엇을 개선했나
+표준 카파시 LLM Wiki 패턴을 충실히 따르되, **두 가지를 개선**했습니다.
 
-- **4개의 문** — 남들은 위키 하나. 여기선 업무·학습·결정·사고로 나눠 한곳에.
-- **폴더 대신 연결** — 남들은 주제 폴더로 칸칸이. 여기선 링크로 이어 옮길 일이 없음.
-- **원본 불변** — 남들은 정리본을 "처리됨" 폴더로 옮김. 여기선 그대로 두고, 안 한 건 자동 표시.
+- **결정·사고도 1급 축** — 대부분 LLM 위키는 개념·엔티티 중심 지식 위키. 여기선 업무·학습에 더해 **결정·사고까지 4개 축**으로.
+- **원본을 옮기지 않는다** — 인기 패턴은 처리한 원본을 "처리됨" 폴더로 이동. 여기선 **그대로 두고**, 아직 정리 안 된 것만 자동 표시 → 원본 경로가 안 깨짐.
+
+> 나머지는 카파시 패턴 정통을 따릅니다 (링크 > 폴더, 원본 읽기 전용, 출처로 역추적).
 
 ### 🔌 어디서나 쓰기 (개발·회의 중에도)
 볼트는 금고, 즉 그냥 폴더입니다 — 수집은 어디서나, 정리는 볼트에서.
