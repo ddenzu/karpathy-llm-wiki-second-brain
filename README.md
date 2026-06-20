@@ -36,7 +36,8 @@ You write sources. The LLM does the bookkeeping — summarizing, cross-linking, 
 index.md            # 4-axis MOC — the entry point
 CLAUDE.md           # schema (rules)
 log.md              # append-only activity ledger
-raw/                # immutable source inbox
+raw/                # source inbox (un-ingested)
+raw/processed/      # ingested originals — moved here, never edited
 wiki/               # LLM-compiled knowledge (incl. 유형:결정 decision notes)
 assets/             # binaries — created on first file
 .claude/commands/   # /ingest /query /lint
@@ -55,12 +56,11 @@ The axes don't live as folders — they exist as **sections (MOCs) in `index.md`
 New topic → one line under its axis. Folders stay minimal (`raw`·`wiki`) — **links & MOCs over folders.**
 
 ### 🧭 What's improved
-Faithful to the standard Karpathy LLM Wiki pattern, with **two improvements**:
+Faithful to the standard Karpathy LLM Wiki pattern, with **one key difference**:
 
-- **Decisions & Thinking as first-class axes** — most LLM wikis are concept/entity knowledge wikis; this adds Decisions and Thinking on top of Work and Learning, for four axes.
-- **Sources are never moved** — the popular pattern moves processed sources into a "done" folder; here they stay put and only the un-processed ones are flagged automatically → source paths never break.
+- **Decisions & Thinking as first-class axes** — most LLM wikis are concept/entity knowledge wikis; this adds Work · Learning · Decisions · Thinking, with **Decisions kept as append-only notes**.
 
-> Everything else follows the pattern faithfully (links over folders, read-only sources, citation back-tracing).
+> Everything else follows the pattern faithfully (links over folders, immutable sources moved to `raw/processed/` once ingested, citation back-tracing).
 
 ### 🔌 Use it from anywhere (while coding, in meetings)
 Despite the name, a vault is just a folder — capture anywhere, organize in the vault.
@@ -119,7 +119,8 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 index.md            # 4축 MOC — 진입점
 CLAUDE.md           # 스키마 (규칙)
 log.md              # append-only 활동 로그
-raw/                # 불변 원본 인박스
+raw/                # 원본 인박스 (미처리)
+raw/processed/      # ingest된 원본 — 여기로 이동, 내용 편집 안 함
 wiki/               # LLM이 컴파일한 지식 (유형:결정 노트 포함)
 assets/             # 바이너리 — 첫 파일 때 생성
 .claude/commands/   # /ingest /query /lint
@@ -138,12 +139,11 @@ assets/             # 바이너리 — 첫 파일 때 생성
 새 주제가 생기면 해당 섹션에 한 줄. 폴더는 `raw`·`wiki` 최소만 — **폴더보다 링크·MOC.**
 
 ### 🧭 무엇이 개선됐나
-표준 카파시 LLM Wiki 패턴을 충실히 따르되, **두 가지가 개선**된 버전.
+표준 카파시 LLM Wiki 패턴을 충실히 따르되, **핵심 차이는 하나**.
 
-- **결정·사고도 1급 축** — 대부분 LLM 위키는 개념·엔티티 중심 지식 위키. 여기선 업무·학습에 더해 **결정·사고까지 4개 축**으로.
-- **원본을 옮기지 않는다** — 인기 패턴은 처리한 원본을 "처리됨" 폴더로 이동. 여기선 **그대로 두고**, 아직 정리 안 된 것만 자동 표시 → 원본 경로가 깨지지 않음.
+- **결정·사고도 1급 축** — 대부분 LLM 위키는 개념·엔티티 중심 지식 위키. 여기선 **업무·학습·결정·사고** 4축으로 나누고, 특히 **결정은 append-only 노트**로 쌓임.
 
-> 나머지는 카파시 패턴 정통을 따름 (링크 > 폴더, 원본 읽기 전용, 출처로 역추적).
+> 나머지는 카파시 패턴 정통을 따름 (링크 > 폴더, 원본 불변·ingest 후 `raw/processed/`로 이동, 출처로 역추적).
 
 ### 🔌 어디서나 쓰기 (개발·회의 중에도)
 볼트는 금고, 즉 그냥 폴더입니다 — 수집은 어디서나, 정리는 볼트에서.
