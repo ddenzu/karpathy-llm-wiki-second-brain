@@ -68,11 +68,11 @@ Despite the name, a vault is just a folder — capture anywhere, organize in the
 - **In the vault**: run Claude Code → `/ingest` · `/query` · `/lint`
 - **From any project (work, coding, meetings)**: don't stop working — drop the finding into `<vault>/raw/`, then `/ingest` it in the vault later to accumulate into the wiki
   - Simple: save a `raw/YYYY-MM-DD-title.md` note
-  - Smooth: a global capture skill saves it to `raw/` with one line — "save this to my vault"
+  - Smooth: copy `skills/obsidian-capture` and `skills/obsidian-query` into `~/.claude/skills/` and replace `{{VAULT_PATH}}` — then any session can save to `raw/` **and read the wiki** without being told to
 - **Right before ending a session or switching context**: save the key points to `raw/` — a good habit for catching context that's easy to lose
 - **Auto-feed**: symlink an agent's memory (e.g. your global Claude memory) or a code project's memory into `raw/`, and that growing memory becomes a source (read-only)
 
-Knowledge built up this way is visible to the agents you work with in other sessions, so they catch what you miss and give more complete answers.
+**With the two skills installed**, agents in other sessions check `index.md` before investigating — so they reuse what you already learned instead of rediscovering it. Without them the vault is only reachable from the vault folder: capture works when you ask, recall doesn't happen at all.
 
 ### Customize
 - **Language**: change the "write in Korean" line in `CLAUDE.md`'s absolute rules.
@@ -151,11 +151,11 @@ assets/             # 바이너리 — 첫 파일 때 생성
 - **볼트 안**: Claude Code 실행 → `/ingest` · `/query` · `/lint`
 - **다른 프로젝트(업무·개발·회의 중)**: 일 멈추지 말고 발견을 `<볼트>/raw/`에 던져둠 → 나중에 볼트에서 `/ingest`로 정리해 wiki로 축적
   - 간단: `raw/YYYY-MM-DD-제목.md` 파일로 저장
-  - 매끄럽게: 전역 캡처 스킬을 두면 어디서든 "이거 볼트에 저장해" 한 마디로 `raw/`에 저장됨
+  - 매끄럽게: `skills/obsidian-capture`·`skills/obsidian-query`를 `~/.claude/skills/`로 복사하고 `{{VAULT_PATH}}`만 바꾸면, 어느 세션에서든 `raw/`에 저장되고 **위키를 알아서 찾아 읽음**
 - **세션을 끝내거나 맥락을 바꾸기 직전**: 그 대화의 핵심을 `raw/`에 저장 — 흩어지기 쉬운 맥락을 붙잡는 좋은 습관
 - **자동 연결**: 에이전트 메모리(예: 전역 Claude 메모리)나 코드 프로젝트의 메모리를 `raw/`에 심볼릭 링크로 걸면, 쌓이는 메모리가 그대로 소스가 됨 (링크 대상도 읽기 전용)
 
-이렇게 쌓인 위키 지식은 다른 세션에서 대화하는 에이전트도 인지할 수 있어, 내가 놓친 부분까지 짚고 더 완성도 높은 답을 줌.
+**스킬 2개를 설치하면** 다른 세션의 에이전트가 조사를 시작하기 전에 `index.md`를 먼저 봅니다 — 이미 알아낸 걸 다시 알아내는 대신 재사용합니다. 설치하지 않으면 볼트는 볼트 폴더에서만 닿습니다: 캡처는 시켜야 되고, 회상은 아예 일어나지 않습니다.
 
 ### 커스터마이즈
 - **언어**: `CLAUDE.md` 절대 규칙의 "한국어로 작성" 줄을 바꾸면 됨.
