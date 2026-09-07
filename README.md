@@ -30,6 +30,7 @@ You write sources. The LLM does the bookkeeping — summarizing, cross-linking, 
 | `/ingest <source>` | Compile a source into the wiki | Summarize → format, citations, ≥2 links, index, log — integrated every time |
 | `/query <question>` | Cited answer from the wiki | Index→drill-down + citations + no-hallucination + compounding |
 | `/lint` | Wiki health-check | Catches orphans, contradictions, stale claims, un-ingested backlog |
+| `/update` | Pull the latest template changes | Updates commands & skills, merges `CLAUDE.md` by hand-check — **your notes are never touched** |
 
 ### Structure
 ```
@@ -40,7 +41,8 @@ raw/                # source inbox (un-ingested)
 raw/processed/      # ingested originals — moved here, never edited
 wiki/               # LLM-compiled knowledge (incl. 유형:결정 decision notes)
 assets/             # binaries — created on first file
-.claude/commands/   # /ingest /query /lint
+.claude/commands/   # /ingest /query /lint /update
+skills/             # global skills — copy to ~/.claude/skills/
 ```
 
 ### 4-axis second brain
@@ -73,6 +75,21 @@ Despite the name, a vault is just a folder — capture anywhere, organize in the
 - **Auto-feed**: symlink an agent's memory (e.g. your global Claude memory) or a code project's memory into `raw/`, and that growing memory becomes a source (read-only)
 
 **With the two skills installed**, agents in other sessions check `index.md` before investigating — so they reuse what you already learned instead of rediscovering it. Without them the vault is only reachable from the vault folder: capture works when you ask, recall doesn't happen at all.
+
+### Updating an existing vault
+Run **`/update`** in the vault. It pulls the latest commands and skills, and walks through `CLAUDE.md` changes with you.
+
+If your vault predates `/update`, bootstrap it once:
+
+```bash
+git remote add template https://github.com/ddenzu/karpathy-llm-wiki-second-brain.git
+git fetch template
+git checkout template/main -- .claude/commands/
+```
+
+From then on `/update` maintains itself.
+
+`git pull` does **not** work — repos made from a template have unrelated histories. `/update` fetches paths instead of merging, so `index.md`, `log.md`, `wiki/` and `raw/` are never touched.
 
 ### Customize
 - **Language**: change the "write in Korean" line in `CLAUDE.md`'s absolute rules.
@@ -113,6 +130,7 @@ LLM에게 코드만 짜게 하지 말고, **나만의 위키(지식베이스)를
 | `/ingest <원본>` | 원본 → 위키 컴파일 | 요약·합의 → 형식·출처·링크(2+)·인덱스·로그까지 자동 통합 |
 | `/query <질문>` | 위키 기반, 출처 단 답 | 인덱스→드릴다운 + 출처 + 환각금지 + 복리 |
 | `/lint` | 위키 건강검진 | 고아·모순·낡은 주장·미ingest 정기 점검 |
+| `/update` | 템플릿 최신 변경 반영 | 커맨드·스킬 갱신 + `CLAUDE.md`는 읽고 병합 — **내 노트는 절대 안 건드림** |
 
 ### 구조
 ```
@@ -123,7 +141,8 @@ raw/                # 원본 인박스 (미처리)
 raw/processed/      # ingest된 원본 — 여기로 이동, 내용 편집 안 함
 wiki/               # LLM이 컴파일한 지식 (유형:결정 노트 포함)
 assets/             # 바이너리 — 첫 파일 때 생성
-.claude/commands/   # /ingest /query /lint
+.claude/commands/   # /ingest /query /lint /update
+skills/             # 전역 스킬 — ~/.claude/skills/ 로 복사
 ```
 
 ### 4축 세컨드브레인
@@ -156,6 +175,21 @@ assets/             # 바이너리 — 첫 파일 때 생성
 - **자동 연결**: 에이전트 메모리(예: 전역 Claude 메모리)나 코드 프로젝트의 메모리를 `raw/`에 심볼릭 링크로 걸면, 쌓이는 메모리가 그대로 소스가 됨 (링크 대상도 읽기 전용)
 
 **스킬 2개를 설치하면** 다른 세션의 에이전트가 조사를 시작하기 전에 `index.md`를 먼저 봅니다 — 이미 알아낸 걸 다시 알아내는 대신 재사용합니다. 설치하지 않으면 볼트는 볼트 폴더에서만 닿습니다: 캡처는 시켜야 되고, 회상은 아예 일어나지 않습니다.
+
+### 기존 볼트 업데이트
+볼트에서 **`/update`** 를 실행하면 됩니다. 커맨드·스킬을 최신으로 받고, `CLAUDE.md` 변경은 같이 확인하며 병합합니다.
+
+`/update` 가 없던 시절의 볼트라면 **최초 1회만** 이렇게 받습니다:
+
+```bash
+git remote add template https://github.com/ddenzu/karpathy-llm-wiki-second-brain.git
+git fetch template
+git checkout template/main -- .claude/commands/
+```
+
+이후로는 `/update` 가 자기 자신까지 갱신합니다.
+
+`git pull` 은 **안 됩니다** — 템플릿으로 만든 저장소는 히스토리가 다릅니다. `/update` 는 머지가 아니라 **경로만 꺼내오는** 방식이라 `index.md`·`log.md`·`wiki/`·`raw/` 는 절대 건드리지 않습니다.
 
 ### 커스터마이즈
 - **언어**: `CLAUDE.md` 절대 규칙의 "한국어로 작성" 줄을 바꾸면 됨.
