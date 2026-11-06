@@ -1,6 +1,6 @@
 ---
 name: obsidian-query
-description: Read the user's Obsidian second-brain vault ({{VAULT_PATH}}) to answer questions, from any project or path (read-only, cite sources). TRIGGER — before starting any investigation or judgment, read the vault's index.md FIRST — before grepping code, querying a database, or opening files. If a relevant note exists, read it; if not, stop immediately. SKIP (overrides trigger) — the user already gave the answer · a simple edit or finding a file path · already queried the same topic in this session. Never writes to the vault; filing notes back is done inside the vault with /ingest.
+description: Read the user's Obsidian second-brain vault ({{VAULT_PATH}}) to answer questions, from any project or path (read-only, cite sources). TRIGGER — before starting any investigation or judgment, read the vault's index.md FIRST — before grepping code, querying a database, or opening files. If a relevant hub or note exists, read it; if not, stop immediately. SKIP (overrides trigger) — the user already gave the answer · a simple edit or finding a file path · already queried the same topic in this session. Never writes to the vault; filing notes back is done inside the vault with /ingest.
 ---
 
 # 옵시디언 쿼리 (위키 회상, 읽기 전용)
@@ -12,8 +12,8 @@ description: Read the user's Obsidian second-brain vault ({{VAULT_PATH}}) to ans
 
 ## 절차
 1. **인덱스 먼저** — `index.md`(전체 MOC)를 읽어 질문과 관련된 허브·노트를 추린다.
-   인덱스 줄이 `[[제목]] — 결론 한 줄` 형태라, **그 줄만으로 답이 되는 경우가 많다.**
-2. **후보가 없으면 종료** — 추가 grep으로 볼트를 더 뒤지지 않는다. 대신 `ls raw/*.md`로 미처리 인박스를 확인해
+   허브 줄의 핵심어로 어느 허브를 열지 정한다. **그 줄만으로 답이 되면 거기서 끝낸다.**
+2. **관련될 만한 허브까지 열어보고도 후보가 없으면 종료** — `index.md`는 허브 위주라 개별 노트가 다 보이지 않는다. 추가 grep으로 볼트를 더 뒤지지 않는다. 대신 `ls raw/*.md`로 미처리 인박스를 확인해
    **"위키에 없고 인박스에도 관련 원본 없음"** 과 **"인박스에 아직 안 넣은 원본이 있음"**(= `/ingest`하면 답이 생길 수 있음)을 구분해 말한다.
 3. **드릴다운 — 통째로 읽는다** — 관련 `wiki/` 노트를 1~2개 연다. **통독이 기본**이다:
    호출 1회로 끝나고, 답이 어디 있는지 맞힐 필요가 없고, 표 밖 단서 문장을 놓치지 않는다.
